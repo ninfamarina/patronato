@@ -30,12 +30,12 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-    'logo_img_class' => 'brand-image-xl',
-    'logo_img_xl' => null,
+    'logo' => "",
+    'logo_img' => 'img/logo-inea.png',
+    'logo_img_class' => 'brand-image',
+    'logo_img_xl' => 'img/logo-inea.png',
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'AdminLTE',
+    'logo_img_alt' => 'Logo INEA',
 
     /*
     |--------------------------------------------------------------------------
@@ -68,7 +68,7 @@ return [
     */
 
     'classes_body' => '',
-    'classes_brand' => '',
+    'classes_brand' => 'navbar-white',
     'classes_brand_text' => '',
     'classes_content_header' => 'container-fluid',
     'classes_content' => 'container-fluid',
@@ -134,7 +134,7 @@ return [
 
     'use_route_url' => false,
 
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'coordinacion-zona',
 
     'logout_url' => 'logout',
 
@@ -177,11 +177,6 @@ return [
             'text' => 'search',
             'search' => true,
             'topnav' => true,
-        ],
-        [
-            'text' => 'Inicio',
-            'url'  => '/',
-            'icon' => 'fas fa-tachometer-alt',
         ],
         [
             'text' => 'Coordinacion de Zona',

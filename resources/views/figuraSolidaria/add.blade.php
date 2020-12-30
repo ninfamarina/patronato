@@ -14,6 +14,7 @@
                     <h3 class="card-title">Agregar nuevo</h3>
                 </div>
                 <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data" action="{{route('escolaridad.guardar')}}">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -265,18 +266,16 @@
                                 <option>Apoyo tec.en p.c</option>
                                 <option>Apoyo tecnico</option>
                                 <option>Apoyo tenico p.c</option>
-                                <option></option>
                             </select>
                         </div>
                         
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div> 
-    @section('css')
-        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    @stop
+   
     @section('js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
     <script type="text/javascript">
