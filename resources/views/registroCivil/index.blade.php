@@ -41,11 +41,7 @@
                                 <tr>
                                     <td>{{$registro_civil->nombre}}</td>
                                     <td class="d-flex">
-                                         <form action="{{route('registroCivil.eliminar', [$registro_civil->id])}}" method="POST" class="pr-3">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button class="btn btn-sm btn-primary"><i class="fas fa-pencil-alt"></i></button>
-                                        </form>
+                                         <a class="btn btn-sm btn-primary" href="{{route('registroCivil.editar', $registro_civil->id)}}"><i class="fas fa-pencil-alt"></i></a>
                                         <form action="{{route('registroCivil.eliminar', [$registro_civil->id])}}" method="POST">
                                             @method('DELETE')
                                             @csrf

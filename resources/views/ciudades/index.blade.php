@@ -31,7 +31,7 @@
                     <table class="table table-striped table-valign-middle">
                         <thead>
                             <tr>
-                                <th>Nombre</th>
+                                <th>Ciudad</th>
                                 <th>Municipio</th>
                                 <th>Acciones</th>
                             </tr>
@@ -42,9 +42,7 @@
                                     <td>{{$ciudad->nombre}}</td>
                                     <td>{{$ciudad->municipio->nombre}}</td>
                                     <td class="d-flex">
-                                         <form action="{{route('ciudades.eliminar', [$ciudad->id])}}" method="POST" class="pr-3">
-                                            @method('DELETE')
-                                            @csrf
+                                         <form action="{{route('ciudades.editar', [$ciudad->id])}}" method="GET" class="pr-3">
                                             <button class="btn btn-sm btn-primary"><i class="fas fa-pencil-alt"></i></button>
                                         </form>
                                         <form action="{{route('ciudades.eliminar', [$ciudad->id])}}" method="POST">

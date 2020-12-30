@@ -17,7 +17,7 @@ class CiudadController extends Controller
         $ciudades = Ciudad::with('municipio')->get();
         return view("ciudades/index",['titulo' => 'Ciudades', 'ciudades' => $ciudades]);
     }
-
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -74,9 +74,11 @@ class CiudadController extends Controller
      * @param  \App\Ciudad  $ciudad
      * @return \Illuminate\Http\Response
      */
-    public function edit(Ciudad $ciudad)
+    public function edit($id)
     {
-        //
+        $ciudad = Ciudad::findOrFail($id);
+        $municipios = \App\Municipio::all();
+        return view("ciudades/edit",['titulo' => 'Ciudad', 'ciudad' => $ciudad, "municipios"=>$municipios]);
     }
 
     /**
@@ -86,9 +88,25 @@ class CiudadController extends Controller
      * @param  \App\Ciudad  $ciudad
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ciudad $ciudad)
+    public function update(Request $request, $id)
     {
-        //
+
+        $validacion = $request->validate([
+            "nombreCiudad" => "required|max:45|min:5","municipios"=>"exists:ciudades,municipio_id"],
+            ['nombreCiudad.required' => "El campo nombre de la ciudad no puede estar vacío",
+            'nombreCiudad.max' => "El campo nombre de la ciudad no puede tener más de 45 caractéres",
+            'nombreCiudad.min' => "El campo nombre de la ciudad no puede tener menos de 5 caractéres",
+            "municipios.exists"=>"Datos del municipio no existen"]
+        );
+
+        $ciudad = Ciudad::findOrFail($id);
+        $nombre =  $request->input('nombreCiudad');
+        $municipio = $request->input('municipios');
+
+         $ciudad->nombre = $nombre;
+         $ciudad->municipio_id = $municipio;
+         $ciudad->save();
+          return redirect()->back()->with('message', 'Datos guardado correctamente');
     }
 
     /**

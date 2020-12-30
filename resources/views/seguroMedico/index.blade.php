@@ -1,3 +1,5 @@
+
+
 @extends('adminlte::page')
 
 @section('title', 'AdminLTE')
@@ -40,11 +42,7 @@
                                 <tr>
                                     <td>{{$seguro_medico->nombre}}</td>
                                     <td class="d-flex">
-                                         <form action="{{route('seguroMedico.eliminar', [$seguro_medico->id])}}" method="POST" class="pr-3">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button class="btn btn-sm btn-primary"><i class="fas fa-pencil-alt"></i></button>
-                                        </form>
+                                         <a class="btn btn-sm btn-primary" href="{{route('seguroMedico.editar', $seguro_medico->id)}}"><i class="fas fa-pencil-alt"></i></a>
                                         <form action="{{route('seguroMedico.eliminar', [$seguro_medico->id])}}" method="POST">
                                             @method('DELETE')
                                             @csrf

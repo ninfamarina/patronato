@@ -14,7 +14,7 @@ class EscolaridadController extends Controller
      */
     public function index()
     {
-        return view("escolaridad/index", ['titulo' => 'escolaridad']);
+        return view("escolaridad/index", ['titulo' => 'Escolaridad']);
     }
 
     /**

@@ -15,7 +15,7 @@ class SeguroMedicoController extends Controller
     public function index()
     {
        $seguro_medico = SeguroMedico::all();
-        return view("seguroMedico/index",['titulo' => 'SeguroMedico', 'seguro_medicos' => $seguro_medico]); 
+        return view("seguroMedico/index",['titulo' => 'Seguro Medico', 'seguro_medicos' => $seguro_medico]); 
     }
 
     /**
@@ -68,9 +68,10 @@ class SeguroMedicoController extends Controller
      * @param  \App\SeguroMedico  $seguroMedico
      * @return \Illuminate\Http\Response
      */
-    public function edit(SeguroMedico $seguroMedico)
+    public function edit($id)
     {
-        //
+        $seguroMedico = SeguroMedico::findOrFail($id);
+        return view("seguroMedico/edit",['titulo' => 'Seguro Medico', 'seguroMedico' => $seguroMedico]);
     }
 
     /**
@@ -80,10 +81,22 @@ class SeguroMedicoController extends Controller
      * @param  \App\SeguroMedico  $seguroMedico
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SeguroMedico $seguroMedico)
+    public function update(Request $request, $id)
     {
-        //
+         $validacion = $request->validate([
+            "nombreSeguroMedico" => "required|max:45|min:5"],
+            ['nombreSeguroMedico.required' => "El campo nombre del seguro médico no puede estar vacío",
+            'nombreSeguroMedico.max' => "El campo nombre del seguro médico no puede tener más de 45 caractéres",
+            'nombreSeguroMedico.min' => "El campo nombre del seguro médico no puede tener menos de 5 caractéres"]
+        );
+
+        $seguroMedico = SeguroMedico::findOrFail($id);
+         $nombre =  $request->input('nombreSeguroMedico');
+         $seguroMedico->nombre = $nombre;
+         $seguroMedico->save();
+          return redirect()->back()->with('message', 'Datos guardado correctamente');
     }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -92,7 +105,7 @@ class SeguroMedicoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    { 
         try {
             $seguro_medico = SeguroMedico::findOrFail($id);
             $seguro_medico->delete();

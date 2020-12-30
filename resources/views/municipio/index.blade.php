@@ -40,11 +40,7 @@
                                 <tr>
                                     <td>{{$municipio->nombre}}</td>
                                     <td class="d-flex">
-                                         <form action="{{route('municipio.eliminar', [$municipio->id])}}" method="POST" class="pr-3">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button class="btn btn-sm btn-primary"><i class="fas fa-pencil-alt"></i></button>
-                                        </form>
+                                            <a class="btn btn-sm btn-primary" href="{{route('municipio.editar', $municipio->id)}}"><i class="fas fa-pencil-alt"></i></a>
                                         <form action="{{route('municipio.eliminar', [$municipio->id])}}" method="POST">
                                             @method('DELETE')
                                             @csrf

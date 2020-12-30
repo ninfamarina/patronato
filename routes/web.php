@@ -30,17 +30,23 @@ Route::post('/escolaridad/guardar','EscolaridadController@store')->name('escolar
 
 Route::get('/municipio', 'MunicipioController@index')->name('municipio.index');
 Route::get('/municipio/agregar', 'MunicipioController@create')->name('municipio.agregar');
+Route::get('/municipio/editar/{id}', 'MunicipioController@edit')->name('municipio.editar');
 Route::post('/municipio/guardar','MunicipioController@store')->name('municipio.guardar');
+Route::put('/municipio/update/{id}','MunicipioController@update')->name('municipio.update');
 Route::delete('/municipio/{id}','MunicipioController@destroy')->name('municipio.eliminar');
 
 Route::get('/seguroMedico', 'SeguroMedicoController@index')->name('seguroMedico.index');
 Route::get('/seguroMedico/agregar', 'SeguroMedicoController@create')->name('seguroMedico.agregar');
+Route::get('/seguroMedico/editar/{id}', 'SeguroMedicoController@edit')->name('seguroMedico.editar');
 Route::post('/seguroMedico/guardar','SeguroMedicoController@store')->name('seguroMedico.guardar');
+Route::put('/seguroMedico/update/{id}','SeguroMedicoController@update')->name('seguroMedico.update');
 Route::delete('/seguroMedico/{id}','SeguroMedicoController@destroy')->name('seguroMedico.eliminar');
 
 Route::get('/ciudad', 'CiudadController@index')->name('ciudades.index');
 Route::get('/ciudad/agregar', 'CiudadController@create')->name('ciudades.agregar');
+Route::get('/ciudad/editar/{id}', 'CiudadController@edit')->name('ciudades.editar');
 Route::post('/ciudad/guardar','CiudadController@store')->name('ciudades.guardar');
+Route::put('/ciudad/update/{id}','CiudadController@update')->name('ciudades.update');
 Route::delete('/ciudad/{id}','CiudadController@destroy')->name('ciudades.eliminar');
 
 Route::get('/coordinacion-zona', 'CoordinacionZonaController@index')->name('coordinacionZona.index');
@@ -50,7 +56,9 @@ Route::delete('/coordinacion-zona/{id}','CoordinacionZonaController@destroy')->n
 
 Route::get('/registroCivil', 'RegistroCivilController@index')->name('registroCivil.index');
 Route::get('/registroCivil/agregar', 'RegistroCivilController@create')->name('registroCivil.agregar');
+Route::get('/registroCivil/editar/{id}', 'RegistroCivilController@edit')->name('registroCivil.editar');
 Route::post('/registroCivil/guardar','RegistroCivilController@store')->name('registroCivil.guardar');
+Route::put('/registroCivil/update/{id}','RegistroCivilController@update')->name('registroCivil.update');
 Route::delete('/registroCivil/{id}','RegistroCivilController@destroy')->name('registroCivil.eliminar');
 
 Route::get('/roles', 'RolFiguraSolidariaController@index')->name('rolFiguraSolidaria.index');

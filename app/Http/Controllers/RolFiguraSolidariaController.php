@@ -15,7 +15,7 @@ class RolFiguraSolidariaController extends Controller
     public function index()
     {
          $roles = RolFiguraSolidaria::all();
-        return view("rolFiguraSolidaria/index",['titulo' => 'RolFiguraSolidaria', 'roles' => $roles]); 
+        return view("rolFiguraSolidaria/index",['titulo' => 'Rol Figura Solidaria', 'roles' => $roles]); 
     }
 
     /**

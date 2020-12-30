@@ -15,7 +15,7 @@ class RegistroCivilController extends Controller
     public function index()
     {
         $registro_civil = RegistroCivil::all();
-        return view("registroCivil/index",['titulo' => 'RegistroCivil', 'registro_civiles' => $registro_civil]); 
+        return view("registroCivil/index",['titulo' => 'Registro Civil', 'registro_civiles' => $registro_civil]); 
     }
 
     /**
@@ -68,9 +68,10 @@ class RegistroCivilController extends Controller
      * @param  \App\RegistroCivil  $registroCivil
      * @return \Illuminate\Http\Response
      */
-    public function edit(RegistroCivil $registroCivil)
+    public function edit($id)
     {
-        //
+          $registroCivil = RegistroCivil::findOrFail($id);
+        return view("registroCivil/edit",['titulo' => 'Registro Civil', 'registroCivil' => $registroCivil]);
     }
 
     /**
@@ -80,9 +81,20 @@ class RegistroCivilController extends Controller
      * @param  \App\RegistroCivil  $registroCivil
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RegistroCivil $registroCivil)
+    public function update(Request $request, $id)
     {
-        //
+         $validacion = $request->validate([
+            "nombreRegistroCivil" => "required|max:45|min:5"],
+            ['nombreRegistroCivil.required' => "El campo nombre del registro civil no puede estar vacío",
+            'nombreRegistroCivil.max' => "El campo nombre del registro civil no puede tener más de 45 caractéres",
+            'nombreRegistroCivil.min' => "El campo nombre del registro civil no puede tener menos de 5 caractéres"]
+        );
+
+        $registroCivil = RegistroCivil::findOrFail($id);
+         $nombre =  $request->input('nombreRegistroCivil');
+         $registroCivil->nombre = $nombre;
+         $registroCivil->save();
+          return redirect()->back()->with('message', 'Datos guardado correctamente');
     }
 
     /**

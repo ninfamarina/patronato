@@ -68,9 +68,10 @@ class MunicipioController extends Controller
      * @param  \App\Municipio  $municipio
      * @return \Illuminate\Http\Response
      */
-    public function edit(Municipio $municipio)
+    public function edit($id)
     {
-        //
+        $municipio = Municipio::findOrFail($id);
+        return view("municipio/edit",['titulo' => 'Municipio', 'municipio' => $municipio]);
     }
 
     /**
@@ -80,9 +81,20 @@ class MunicipioController extends Controller
      * @param  \App\Municipio  $municipio
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Municipio $municipio)
+    public function update(Request $request, $id)
     {
-        //
+         $validacion = $request->validate([
+            "nombreMunicipio" => "required|max:45|min:5"],
+            ['nombreMunicipio.required' => "El campo nombre del municipio no puede estar vacío",
+            'nombreMunicipio.max' => "El campo nombre del municipio no puede tener más de 45 caractéres",
+            'nombreMunicipio.min' => "El campo nombre del municipio no puede tener menos de 5 caractéres"]
+        );
+
+        $municipio = Municipio::findOrFail($id);
+         $nombre =  $request->input('nombreMunicipio');
+         $municipio->nombre = $nombre;
+         $municipio->save();
+          return redirect()->back()->with('message', 'Datos guardado correctamente');
     }
 
     /**
