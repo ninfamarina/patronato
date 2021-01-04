@@ -37,6 +37,8 @@ return [
     'logo_img_xl_class' => 'brand-image-xs',
     'logo_img_alt' => 'Logo INEA',
 
+
+
     /*
     |--------------------------------------------------------------------------
     | Layout
@@ -67,14 +69,16 @@ return [
     |
     */
 
+
+
     'classes_body' => '',
     'classes_brand' => 'navbar-white',
     'classes_brand_text' => '',
     'classes_content_header' => 'container-fluid',
     'classes_content' => 'container-fluid',
-    'classes_sidebar' => 'sidebar-dark-primary elevation-4',
+    'classes_sidebar' => 'sidebar-dark-lightblue elevation-4',
     'classes_sidebar_nav' => '',
-    'classes_topnav' => 'navbar-white navbar-light',
+    'classes_topnav' => 'navbar-dark navbar-lightblue',
     'classes_topnav_nav' => 'navbar-expand-md',
     'classes_topnav_container' => 'container',
 
@@ -182,11 +186,6 @@ return [
             'text' => 'Coordinacion de Zona',
             'url'  => '/coordinacion-zona',
             'icon' => 'fas fa-building',
-        ],
-        [
-            'text' => 'Escolaridad',
-            'url'  => '/escolaridad',
-            'icon' => 'fas fa-graduation-cap',
         ],
         [
             'text' => 'Figura Solidaria',

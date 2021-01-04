@@ -39,8 +39,10 @@ class CoordinacionZonaController extends Controller
     {
          $validacion = $request->validate([
             "nombreCoordinacionZona" => "required|max:45|min:5",
+            "numCoordinacion"=> "required",
             "municipio" => "required"],
             ['nombreCoordinacionZona.required' => "El campo nombre de la coordinacion de Zona no puede estar vacío",
+            'numCoordinacion.required'=>"El campo numero de coordinacion no debe estar vacío",
             'nombreCoordinacionZona.max' => "El campo nombre de la ciudad no puede tener más de 45 caractéres",
             'nombreCoordinacionZona.min' => "El campo nombre de la cuidad no puede tener menos de 5 caractéres",
             "municipio.required" => "El campo municipio es requerido"]
@@ -48,10 +50,12 @@ class CoordinacionZonaController extends Controller
 
         $nombre =  $request->input('nombreCoordinacionZona');
         $municipio = $request->input('municipio');
+        $numCoordinacion = $request->input('numCoordinacion');
 
         CoordinacionZona::create([
             "nombre" => $nombre,
-            "municipio_id" => $municipio
+            "municipio_id" => $municipio,
+            "num_coordinacion" => $numCoordinacion
         ]);
 
         return redirect()->back()->with('message', 'Datos guardado correctamente');

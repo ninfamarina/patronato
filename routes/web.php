@@ -24,10 +24,6 @@ Route::get('/home', function() {
 Route::get('/figuraSolidaria', 'FiguraSolidariaController@index')->name('figuraSolidaria.index');
 Route::get('/figuraSolidaria/agregar', 'FiguraSolidariaController@create')->name('figuraSolidaria.agregar');
 
-Route::get('/escolaridad', 'EscolaridadController@index')->name('escolaridad.index');
-Route::get('/escolaridad/agregar','EscolaridadController@create')->name('escolaridad.agregar');
-Route::post('/escolaridad/guardar','EscolaridadController@store')->name('escolaridad.guardar');
-
 Route::get('/municipio', 'MunicipioController@index')->name('municipio.index');
 Route::get('/municipio/agregar', 'MunicipioController@create')->name('municipio.agregar');
 Route::get('/municipio/editar/{id}', 'MunicipioController@edit')->name('municipio.editar');

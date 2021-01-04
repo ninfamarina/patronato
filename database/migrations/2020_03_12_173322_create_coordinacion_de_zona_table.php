@@ -16,6 +16,7 @@ class CreateCoordinacionDeZonaTable extends Migration
         Schema::create('coordinacionDeZona', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->String('nombre',45);
+            $table->Integer('num_coordinacion');
             $table->unsignedBigInteger('municipio_id');
             $table->foreign('municipio_id')->references('id')->on('municipios');
             $table->timestamps();

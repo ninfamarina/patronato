@@ -31,6 +31,7 @@
                     <table class="table table-striped table-valign-middle">
                         <thead>
                             <tr>
+                                <th>Número Rol</th>
                                 <th>Nombre</th>
                                 <th>Acciones</th>
                             </tr>
@@ -38,6 +39,7 @@
                         <tbody>
                             @foreach($roles as $roles)
                                 <tr>
+                                    <td>{{$roles->no_rol}}</td>
                                     <td>{{$roles->nombre}}</td>
                                     <td class="d-flex">
                                          <form action="{{route('rolFiguraSolidaria.eliminar', [$roles->id])}}" method="POST" class="pr-3">

@@ -28,19 +28,38 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped table-valign-middle">
+                    <div class="row">
+                         @foreach($coordinacionZonas as $coordinacionZona)
+                        <div class="col-md-3 col-sm-6 col-12">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-info">{{$coordinacionZona->num_coordinacion}}</span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">{{$coordinacionZona->nombre}}</span>
+                                    <span class="info-box-number"><i class="fas fa-users"></i> 123</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                             <!-- /.info-box -->
+                         </div>
+                         @endforeach
+                    </div>      
+                    <!--table class="table table-striped table-valign-middle">
                         <thead>
                             <tr>
+                                <th>Número</th>
                                 <th>Nombre</th>
                                 <th>Municipio</th>
+                                
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($coordinacionZonas as $coordinacionZona)
-                                <tr>
-                                    <td>{{$coordinacionZona->nombre}}</td>
 
+                                <tr>
+                                    <td>{{$coordinacionZona->num_coordinacion}}</td>
+                                    <td>{{$coordinacionZona->nombre}}</td>
                                     <td>{{$coordinacionZona->municipio->nombre}}</td>
+
                                     <td class="d-flex">
                                          <form action="{{route('coordinacionZona.eliminar', [$coordinacionZona->id])}}" method="POST" class="pr-3">
                                             @method('DELETE')
@@ -57,7 +76,7 @@
                                 </tr>
                             @endforeach
                         </tbody>
-                    </table>
+                    </table-->
                 </div>
             </div>
         </div>

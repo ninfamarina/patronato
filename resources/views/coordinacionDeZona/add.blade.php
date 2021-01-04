@@ -35,6 +35,12 @@
                            <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label>NúmeroCoordinación</label>
+                                    <input type="number" name="numCoordinacion" class="form-control">
+                                </div>
+                            </div>    
+                            <div class="col-md-6">
+                                <div class="form-group">
                                     <label>Municipio</label>
                                     <select class="form-control" name="municipio">
                                         <option disabled="disabled" selected>Selecciona un municipio</option>
