@@ -23,6 +23,7 @@
     @else
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     @endif
+    @stack('styles')
 </head>
 <body class="@yield('classes_body')" @yield('body_data')>
 
@@ -39,5 +40,6 @@
 @else
 <script src="{{ asset('js/app.js') }}"></script>
 @endif
+@stack('scripts')
 </body>
 </html>
