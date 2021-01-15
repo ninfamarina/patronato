@@ -26,8 +26,9 @@ class FiguraSolidariaController extends Controller
     public function create()
     {
         $registroCivil = RegistroCivil::all();
+        $coordinacionZona = \App\CoordinacionZona::all();
         $municipios = \App\Municipio::all();
-        return view('figuraSolidaria/add', ['titulo' => 'Agregar Figura Solidaria', 'registrosCivil' => $registroCivil, "municipios" => $municipios]);
+        return view('figuraSolidaria/add', ['titulo' => 'Agregar Figura Solidaria', 'registrosCivil' => $registroCivil, "municipios" => $municipios, 'coordinacionZona' => $coordinacionZona]);
     }
 
     /**

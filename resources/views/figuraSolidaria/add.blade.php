@@ -182,42 +182,7 @@
                                             <div class="form-group">
                                                 <label>Localidad</label>
                                                 <select class="form-control" id="ciudadesDomicilio" name="ciudadesDomicilio">
-                                                    <option>Bahia Asuncion</option>
-                                                    <option>Bahia Tortugas</option>
-                                                    <option>Benito Juarez</option>
-                                                    <option>Cabo San Lucas</option>
-                                                    <option>Chametla</option>
-                                                    <option>Ciudad Constitucion</option>
-                                                    <option>Ciudad Insurgentes</option>
-                                                    <option>Clave 15</option>
-                                                    <option>Ejido. Alfredo V. Bonfil</option>
-                                                    <option>Ejido. San lucas</option>
-                                                    <option>El Rosario</option>
-                                                    <option>Guerrero negro</option>
-                                                    <option>Gustavo Diaz ordaz</option>
-                                                    <option>Heroica mulege</option>
-                                                    <option>La Altagracia</option>
-                                                    <option>La Paz</option>
-                                                    <option>La Poza grande</option>
-                                                    <option>Las Barrancas</option>
-                                                    <option>Loreto</option>
-                                                    <option>Miraflores</option>
-                                                    <option>Mulege</option>
-                                                    <option>Puerto San Carlos</option>
-                                                    <option>San Bruno</option>
-                                                    <option>San Ignacio</option>
-                                                    <option>San Isidro</option>
-                                                    <option>San Jose del Cabo</option>
-                                                    <option>San Juanico</option>
-                                                    <option>San Luis Gonzaga</option>
-                                                    <option>San Miguel de Comondu</option>
-                                                    <option>Santa Rosalia</option>
-                                                    <option>Santiago</option>
-                                                    <option>Villa Alberto A.A.A</option>
-                                                    <option>Villa Alberto Andres A.A</option>
-                                                    <option>Villa Alberto Andres Alvarado</option>
-                                                    <option>Villa Hidalgo</option>
-                                                    <option>Villa Morelos</option>
+                                                    <option selected disabled>Seleccione una ciudad</option>
                                                 </select>  
                                             </div>
                                             
@@ -283,13 +248,12 @@
                                             <div class="form-group">
                                                 <label>Coordinacion de Zona</label>
                                                 <select class="form-control">
-                                                    <option>01</option>
-                                                    <option>02</option>
-                                                    <option>03</option>
-                                                    <option>04</option>
-                                                    <option>05</option>
-                                                    <option>06</option>
-                                                    <option>07</option>
+                                                    <option selected disabled>Seleccione coordinación de zona</option>
+                                                    @foreach($coordinacionZona as $cz)
+                                                        <option value="{{$cz->id}}">
+                                                            {{$cz->num_coordinacion}}
+                                                            {{ $cz->nombre }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>

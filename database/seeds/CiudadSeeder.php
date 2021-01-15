@@ -19,7 +19,7 @@ class CiudadSeeder extends Seeder
         	array("nombre" => 'Cabo San Lucas', "municipio" => "Los Cabos"),
         	array("nombre" => 'Chametla', "municipio" => "La Paz"),
         	array("nombre" => 'Ciudad Constitucion', "municipio" => "Comondú"),
-        	array("nombre" => 'Clave 15<', "municipio" => "Mulegé"),
+        	array("nombre" => 'Clave 15', "municipio" => "Mulegé"),
         	array("nombre" => 'Ejido. Alfredo V. Bonfil', "municipio" => "La Paz"),
         	array("nombre" => 'Ejido. San lucas', "municipio" => "Mulegé"),
         	array("nombre" => 'El Rosario', "municipio" => "Comondú"),
