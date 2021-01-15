@@ -113,4 +113,10 @@ class MunicipioController extends Controller
             return redirect()->back()->with('error', 'Ocurrió un error al intentar eliminar los datos');
         }
     }
+
+    public function withCiudades($id) {
+        $municipio = Municipio::with(['ciudades'])
+            ->where('id', $id)->first();
+        return response()->json(array("municipio" => $municipio));
+    }
 }

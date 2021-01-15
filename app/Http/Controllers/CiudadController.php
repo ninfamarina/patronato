@@ -125,4 +125,5 @@ class CiudadController extends Controller
             return redirect()->back()->with('error', 'Ocurrió un error al intentar eliminar los datos');
         }
     }
+
 }

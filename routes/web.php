@@ -30,6 +30,7 @@ Route::get('/municipio/editar/{id}', 'MunicipioController@edit')->name('municipi
 Route::post('/municipio/guardar','MunicipioController@store')->name('municipio.guardar');
 Route::put('/municipio/update/{id}','MunicipioController@update')->name('municipio.update');
 Route::delete('/municipio/{id}','MunicipioController@destroy')->name('municipio.eliminar');
+Route::get('/municipio/{id}/ciudades','MunicipioController@withCiudades')->name('municipio.ciudades');
 
 Route::get('/seguroMedico', 'SeguroMedicoController@index')->name('seguroMedico.index');
 Route::get('/seguroMedico/agregar', 'SeguroMedicoController@create')->name('seguroMedico.agregar');

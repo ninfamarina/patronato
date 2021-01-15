@@ -151,15 +151,12 @@
                                 </div>
                                 <div id="address" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger2">
                                     <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Domicilio</label>
-                                                    <input type="text" name="doFiguraSolidaria" class="form-control"> 
-                                                </div>
-                                            </div> 
-                                    </div>
-
-                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Domicilio</label>
+                                                <input type="text" name="doFiguraSolidaria" class="form-control"> 
+                                            </div>
+                                        </div> 
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Colonia</label>
@@ -167,10 +164,24 @@
                                                 class="form-control">    
                                             </div>   
                                         </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Municipio</label>
+                                                <select class="form-control" id="municipioDomicilio">
+                                                    <option selected disabled>Seleccione un municipio</option>
+                                                    @foreach($municipios as $municipio)
+                                                        <option value="{{$municipio->id}}">{{ $municipio->nombre }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>   
+                                        </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Localidad</label>
-                                                <select class="form-control">
+                                                <select class="form-control" id="ciudadesDomicilio" name="ciudadesDomicilio">
                                                     <option>Bahia Asuncion</option>
                                                     <option>Bahia Tortugas</option>
                                                     <option>Benito Juarez</option>
@@ -337,6 +348,23 @@
     <script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
     <script type="text/javascript">
         const stepper = new Stepper(document.querySelector('.bs-stepper'));
+        const municipioDomicilio = document.querySelector("#municipioDomicilio");
+        municipioDomicilio.addEventListener("change", function(e){
+            const ciudadId = parseInt(e.target.value);
+            fetch(`/municipio/${ciudadId}/ciudades`)
+            .then(response => response.json())
+            .then(data => {
+                const { municipio } = data;
+                let {ciudades = []} = municipio;
+                const ciudadesDomicilio = document.querySelector('#ciudadesDomicilio');
+                ciudades = ciudades.map(c => `<option value="${c.id}">${c.nombre}</option>`); 
+                ciudadesDomicilio.innerHTML = `<option value="-1" selected disabled>Seleccione una ciudad</option>
+                    ${ciudades.join()}`
+            })
+            .catch(err => {
+                console.log(err)
+            });
+        });
     </script>
 @endpush
 @stop
