@@ -211,10 +211,12 @@
                                                 <div class="form-group">
                                                 <label>Servicio Medico</label>
                                                 <select class="form-control">
-                                                    <option>Sin servicio</option>
-                                                    <option>ISSSTE</option>
-                                                    <option>IMSS</option>
-                                                    <option>Seguro Popular</option>
+                                                    <option  selected disabled >Seleccion una opcion</option>
+                                                @foreach ( $SeguroMedico as $sm )
+                                                <option value="{{$sm->id}}">
+                                                            {{ $sm->nombre }}</option>
+
+                                                 @endforeach
                                                 </select>
                                             </div>
                                         </div>
@@ -259,40 +261,17 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Numero de Rol</label>
-                                                <select class="form-control">
-                                                    <option>13</option>
-                                                    <option>21</option>
-                                                    <option>22</option>
-                                                    <option>22 y 5</option>
-                                                    <option>3</option>
-                                                    <option>48</option>
-                                                    <option>5</option>
-                                                    <option>5 y 22</option>
-                                                    <option>61</option>
-                                                    <option>62</option>
-                                                    <option>64</option>
-                                                    <option>65</option>
-                                                    <option>67</option>
-                                                    <option>72</option>
-                                                    <option>78</option>
-                                                    <option>80</option>
-                                                    <option>90</option>
-                                                </select>    
-                                            </div>
-                                        </div>
+                                       
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Rol</label>
                                                 <select class="form-control">
-                                                    <option>Aplicador de examenes</option>
-                                                    <option>Aplicador de examenes y apoyo tenico</option>
-                                                    <option>Apoyo de acreditacion</option>
-                                                    <option>Apoyo tec.en p.c</option>
-                                                    <option>Apoyo tecnico</option>
-                                                    <option>Apoyo tenico p.c</option>
+                                                    <option selected disabled>Seleccione un rol</option>
+                                                    @foreach($rol as $rol)
+                                                        <option value="{{$rol }}">
+                                                        {{$rol->no_rol }}&nbsp; 
+                                                        {{$rol->nombre}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>

@@ -15,7 +15,7 @@ class SeguroMedicoController extends Controller
     public function index()
     {
        $seguro_medico = SeguroMedico::all();
-        return view("seguroMedico/index",['titulo' => 'Seguro Medico', 'seguro_medicos' => $seguro_medico]); 
+        return view("seguroMedico/index",['titulo' => 'Seguro Médico', 'seguro_medicos' => $seguro_medico]); 
     }
 
     /**
@@ -25,7 +25,7 @@ class SeguroMedicoController extends Controller
      */
     public function create()
     {
-        return view("seguroMedico/add",['titulo' => 'Agregar SeguroMedico']);
+        return view("seguroMedico/add",['titulo' => 'Agregar Seguro Médico']);
     }
 
     /**

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\FiguraSolidaria;
 use App\RegistroCivil;
+use App\SeguroMedico;
+use App\RolFiguraSolidaria;
 use Illuminate\Http\Request;
 
 class FiguraSolidariaController extends Controller
@@ -26,9 +28,11 @@ class FiguraSolidariaController extends Controller
     public function create()
     {
         $registroCivil = RegistroCivil::all();
+        $SeguroMedico = SeguroMedico::all();
+        $rol= RolFiguraSolidaria::all();
         $coordinacionZona = \App\CoordinacionZona::all();
         $municipios = \App\Municipio::all();
-        return view('figuraSolidaria/add', ['titulo' => 'Agregar Figura Solidaria', 'registrosCivil' => $registroCivil, "municipios" => $municipios, 'coordinacionZona' => $coordinacionZona]);
+        return view('figuraSolidaria/add', ['titulo' => 'Agregar Figura Solidaria', 'registrosCivil' => $registroCivil, "municipios" => $municipios, 'coordinacionZona' => $coordinacionZona, 'SeguroMedico' => $SeguroMedico, 'rol' => $rol]);
     }
 
     /**

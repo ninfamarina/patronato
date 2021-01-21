@@ -15,5 +15,8 @@ class DatabaseSeeder extends Seeder
          $this->call(CiudadSeeder::class);
          $this->call(CoordinacionZonaSeeder::class);
          $this->call(RegistroCivilSeeder::class);
+         $this->call(SeguroMedicoSeeder::class);
+         $this->call(RolSeeder::class);
+         
     }
 }
