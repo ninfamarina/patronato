@@ -141,11 +141,26 @@
                                             </div>   
                                         </div>
                                         <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Hijos</label>
+                                                <input type="number" name="hijosFiguraSolidaria" class="form-control" min="0" > 
+                                            </div> 
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Hijos</label>
-                                                    <input type="number" name="hijosFiguraSolidaria" class="form-control" min="0" > 
-                                                </div> 
+                                                <label>Servicio Médico</label>
+                                                <select class="form-control">
+                                                    <option  selected disabled >Selecciona una opción</option>
+                                                @foreach ( $SeguroMedico as $sm )
+                                                <option value="{{$sm->id}}">
+                                                            {{ $sm->nombre }}</option>
+
+                                                 @endforeach
+                                                </select>
                                             </div>
+                                        </div>
                                     </div>
                                     <button class="btn btn-primary" onclick="stepper.next()">Siguiente</button>
                                 </div>
@@ -193,33 +208,50 @@
                                 </div>
                                 <div id="documentation" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger3">
                                     <div class="row">
+                                         <div class="col-md-6">
+                                            <div class="form-group">
+                                            <label>INE</label>
+                                            <input type="file" name="comprobanteIne"
+                                                class="form-control">
+                                            </div>
+                                        </div> 
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                            <label>Escolaridad</label>
+                                            <label>CURP</label>
+                                            <input type="file" name="comprobanteCurp"
+                                                class="form-control">
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                            <label>Último grado de estudio</label>
                                                 <select class="form-control">
-                                                    <option>Sin estudios</option>
-                                                    <option>Primaria</option>
-                                                    <option>Secundaria</option>
-                                                    <option>Preparatoria</option>
-                                                    <option>Licenciatura</option>
-                                                    <option>Maestria</option>
-                                                    <option>Doctorado</option>
+                                                    <option selected disabled >Selecciona una opcion</option>
+                                                    @foreach ($escolaridad as $es)
+                                                    <option value="{{$es->id}}"> {{$es->nombre}} </option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                                <div class="form-group">
-                                                <label>Servicio Medico</label>
-                                                <select class="form-control">
-                                                    <option  selected disabled >Seleccion una opcion</option>
-                                                @foreach ( $SeguroMedico as $sm )
-                                                <option value="{{$sm->id}}">
-                                                            {{ $sm->nombre }}</option>
-
-                                                 @endforeach
-                                                </select>
+                                            <div class="form-group">
+                                                <label>Comprobante grado de estudios</label>
+                                                <input type="file" name="comprobanteGradoEstudio"
+                                                class="form-control">
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row">
+                                         <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Carta compromiso</label>
+                                                <input type="file" name="cartaCompromiso"
+                                                class="form-control">
+                                            </div>
+                                        </div>  
                                     </div>
                                     <button class="btn btn-primary" onclick="stepper.previous()">Anterior</button>
                                     <button class="btn btn-primary" onclick="stepper.next()">Siguiente</button>
@@ -227,25 +259,29 @@
                                 <div id="figuraSolidaria" role="tabpanel" class="bs-stepper-pane active" aria-labelledby="stepper1trigger3">
                                      <div class="row">
                                         <div class="col-md-6">
-                                            <label class="control-label" for="Date">Fecha de Registro</label>
+                                            <div class="form-group">
+                                                <label class="control-label" for="Date">Fecha de Registro</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-calendar"></i>
+                                                        </div>
+                                                        <input type="text" class="form-control" id="fechaRegistro" name="fechaRegistro"/>
+                                                    </div> 
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label" for="Date"> Fecha de Reincorporacion</label>
                                                 <div class="input-group">
                                                     <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                     </div>
-                                                    <input type="text" class="form-control" id="fechaRegistro" name="fechaRegistro"/>
+                                                    <input type="text"  class="form-control" id="fechaReincorporacion" name="fechaReincorporacion">
                                                 </div> 
-                                        </div>
+                                           </div> 
+                                        </div> 
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            <label class="control-label" for="Date"> Fecha de Reincorporacion</label>
-                                            <div class="input-group">
-                                                <div class="input-group-addon">
-                                                    <i class="fa fa-calendar"></i>
-                                                </div>
-                                                <input type="text"  class="form-control" id="fechaReincorporacion" name="fechaReincorporacion">
-                                            </div> 
-                                        </div> 
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Coordinacion de Zona</label>
@@ -259,9 +295,6 @@
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                       
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Rol</label>
@@ -278,7 +311,7 @@
                                         
                                     </div>
                                     <button class="btn btn-primary" onclick="stepper.previous()">Anterior</button>
-                                    <button class="btn btn-primary" onclick="stepper.next()">Siguiente</button>
+                                    <button class="btn btn-success" onclick="stepper.next()">Guadar</button>
                                 </div>
                             </form>
                         </div>

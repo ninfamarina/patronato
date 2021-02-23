@@ -31,7 +31,7 @@ class AddFkFiguraSolidariasTable extends Migration
     public function down()
     {
         Schema::table('figuras_solidarias', function (Blueprint $table) {
-            $table->dropForeign(['segurdo_medico_id', 'escolaridad_id', 'registro_civil_id']);
+            $table->dropForeign(['segurdo_medico_id', 'escolaridad_id',  'registro_civil_id']);
         });
     }
 }

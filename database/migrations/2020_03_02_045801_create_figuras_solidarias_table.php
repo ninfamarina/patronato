@@ -30,9 +30,9 @@ class CreateFigurasSolidariasTable extends Migration
             $table->date('fecha_registro');
             $table->date('fecha_incorporacion');
             $table->string('carta_compromiso',250);
-            $table->string('ine',250);
-            $table->string('acta_nacimiento',250);
-            $table->string('comprobante_estudio',250);
+            $table->string('comprobante_ine',250);
+            $table->string('comprobante_curp',250);
+            $table->string('comprobante_grado_estudio',250);
             $table->timestamps();
         });
     }

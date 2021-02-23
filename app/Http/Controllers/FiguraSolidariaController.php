@@ -32,7 +32,8 @@ class FiguraSolidariaController extends Controller
         $rol= RolFiguraSolidaria::all();
         $coordinacionZona = \App\CoordinacionZona::all();
         $municipios = \App\Municipio::all();
-        return view('figuraSolidaria/add', ['titulo' => 'Agregar Figura Solidaria', 'registrosCivil' => $registroCivil, "municipios" => $municipios, 'coordinacionZona' => $coordinacionZona, 'SeguroMedico' => $SeguroMedico, 'rol' => $rol]);
+        $escolaridad = \App\Escolaridad::all();
+        return view('figuraSolidaria/add', ['titulo' => 'Agregar Figura Solidaria', 'registrosCivil' => $registroCivil, "municipios" => $municipios, 'coordinacionZona' => $coordinacionZona, 'SeguroMedico' => $SeguroMedico, 'rol' => $rol , 'escolaridad'=> $escolaridad]);
     }
 
     /**
