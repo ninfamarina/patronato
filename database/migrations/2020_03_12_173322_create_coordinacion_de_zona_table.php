@@ -19,6 +19,11 @@ class CreateCoordinacionDeZonaTable extends Migration
             $table->Integer('num_coordinacion');
             $table->unsignedBigInteger('municipio_id');
             $table->foreign('municipio_id')->references('id')->on('municipios');
+            $table->String('nombre_encargado',45)->nullable();
+            $table->String('apellido_paterno',40)->nullable();
+            $table->String('apellido_materno',40)->nullable();
+            $table->String('numero_celular',10)->nullable();
+            $table->String('email',50)->nullable();
             $table->timestamps();
         });
     }

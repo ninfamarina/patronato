@@ -51,11 +51,27 @@ class CoordinacionZonaController extends Controller
         $nombre =  $request->input('nombreCoordinacionZona');
         $municipio = $request->input('municipio');
         $numCoordinacion = $request->input('numCoordinacion');
+        $nombreEncargado = !empty($request->input('nombreEncargado')) ?
+            $request->input('nombreEncargado') : null;
+        $apellidoPaterno = !empty($request->input('apellidoPaterno')) ?
+            $request->input('apellidoPaterno') : null;
+        $apellidoMaterno = !empty($request->input('apellidoMaterno')) ?
+            $request->input('apellidoMaterno') : null;
+        $numeroCelular = !empty($request->input('numeroCelular')) ?
+            $request->input('numeroCelular') : null;
+        $Email = !empty($request->input('Email')) ?
+            $request->input('Email') : null;
 
         CoordinacionZona::create([
             "nombre" => $nombre,
             "municipio_id" => $municipio,
-            "num_coordinacion" => $numCoordinacion
+            "num_coordinacion" => $numCoordinacion,
+            "nombre_encargado" => $nombreEncargado,
+            "apellido_paterno" => $apellidoPaterno,
+            "apellido_materno" => $apellidoMaterno,
+            "numero_celular" => $numeroCelular,
+            "email" => $Email
+
         ]);
 
         return redirect()->back()->with('message', 'Datos guardado correctamente');
