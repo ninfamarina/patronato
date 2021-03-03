@@ -30,16 +30,46 @@
                 <div class="card-body">
                     <div class="row">
                          @foreach($coordinacionZonas as $coordinacionZona)
-                        <div class="col-md-3 col-sm-6 col-12">
-                            <div class="info-box">
+                        <div class="col-md-4 col-sm-6 col-12">
+                            <!--div class="info-box">
                                 <span class="info-box-icon bg-info">{{$coordinacionZona->num_coordinacion}}</span>
                                 <div class="info-box-content">
                                     <span class="info-box-text">{{$coordinacionZona->nombre}}</span>
                                     <span class="info-box-number"><i class="fas fa-users"></i> 123</span>
+                                    <small class="text-muted"><i class="fas fa-user"></i> {{$coordinacionZona->nombre_encargado}} {{$coordinacionZona->apellido_paterno}} {{$coordinacionZona->apellido_materno}}</small>
+                                     <small class="text-muted"><i class="fas fa-at"></i>{{$coordinacionZona->email}} </small>
                                 </div>
-                                <!-- /.info-box-content -->
+                            </div-->
+                            <div class="card card-widget widget-user-2">
+                                <div class="widget-user-header bg-lightblue">
+                                    <div class="widget-user-image">
+                                      <h2 class="float-left text-light">{{$coordinacionZona->num_coordinacion}}</h2>
+                                    </div>
+                                    <h3 class="widget-user-username text-light">{{$coordinacionZona->nombre}}</h3>
+                                    <h5 class="widget-user-desc text-light"><i class="fas fa-users"></i> 123</h5>
+                                </div>
+                                <div class="card-footer p-0">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <small class="text-muted"><i class="fas fa-user"></i> {{$coordinacionZona->nombre_encargado}} {{$coordinacionZona->apellido_paterno}} {{$coordinacionZona->apellido_materno}}
+                                                </small>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <small class="text-muted"><i class="fas fa-at"></i> {{$coordinacionZona->email}} </small>
+                                             </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <small class="text-muted"><i class="fas fa-phone"></i> {{$coordinacionZona->numero_celular}} </small>
+                                             </a>
+                                        </li>
+
+                                    </ul>
+                                </div> 
                             </div>
-                             <!-- /.info-box -->
                          </div>
                          @endforeach
                     </div>      
