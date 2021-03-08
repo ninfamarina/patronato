@@ -23,6 +23,7 @@ Route::get('/home', function() {
 
 Route::get('/figuraSolidaria', 'FiguraSolidariaController@index')->name('figuraSolidaria.index');
 Route::get('/figuraSolidaria/agregar', 'FiguraSolidariaController@create')->name('figuraSolidaria.agregar');
+Route::post('/figuraSolidaria/guardar', 'FiguraSolidariaController@store')->name('figuraSolidaria.guardar');
 
 Route::get('/municipio', 'MunicipioController@index')->name('municipio.index');
 Route::get('/municipio/agregar', 'MunicipioController@create')->name('municipio.agregar');

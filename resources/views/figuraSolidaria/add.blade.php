@@ -13,6 +13,22 @@
 @endpush
     <div class="row">
         <div class="col-12">
+            @if(session()->has('message'))
+                <div class="alert alert-success">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    {{ session()->get('message') }}
+                </div>
+            @endif
+            @if($errors->any())
+                <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Agregar nuevo</h3>
@@ -48,15 +64,20 @@
                             </div>
                         </div>
                         <div class="bs-stepper-content">
-                            <form onsubmit="return false">
+                            <form method="POST" enctype="multipart/form-data" action="{{route('figuraSolidaria.guardar')}}">
+                                @csrf
                                 <div id="personalInformation" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger1">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>
-                                                    Nombre
+                                                    Nombre <i class="text-danger">*</i>
                                                 </label>
-                                                <input type="text" name="nombreFiguraSolidaria" class="form-control">
+                                                <input type="text" name="nombreFiguraSolidaria" class="form-control {{ $errors->has('nombreFiguraSolidaria') ? 'is-invalid' : ''}}"
+                                                value="{{old('nombreFiguraSolidaria')}}">
+                                                @if($errors->has('nombreFiguraSolidaria'))
+                                                    <span class="text-danger">{{ $errors->first('nombreFiguraSolidaria') }}</span>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -80,21 +101,13 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>
-                                                    CURP
-                                                </label>
-                                                <input type="text" name="curpFiguraSolidaria" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>
                                                     RFC
                                                 </label>
                                                 <input type="text" name="rfcFiguraSolidaria" class="form-control">                    
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label" for="Date">Fecha de Nacimiento</label>
@@ -106,8 +119,6 @@
                                                 </div>    
                                             </div>  
                                         </div>
-                                    </div>
-                                    <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label">
@@ -121,6 +132,8 @@
                                                 </div>  
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row">
                                          <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Estado Civil</label>
@@ -132,26 +145,24 @@
                                                 </select> 
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
                                          <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Celular</label>
-                                                <input type="text" name="coFiguraSolidaria" class="form-control">
+                                                <input type="text" name="celFiguraSolidaria" class="form-control">
                                             </div>   
                                         </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Hijos</label>
                                                 <input type="number" name="hijosFiguraSolidaria" class="form-control" min="0" > 
                                             </div> 
                                         </div>
-                                    </div>
-                                    <div class="row">
                                         <div class="col-md-6">
                                                 <div class="form-group">
                                                 <label>Servicio Médico</label>
-                                                <select class="form-control">
+                                                <select class="form-control" name="serviociMedico">
                                                     <option  selected disabled >Selecciona una opción</option>
                                                 @foreach ( $SeguroMedico as $sm )
                                                 <option value="{{$sm->id}}">
@@ -162,7 +173,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <button class="btn btn-primary" onclick="stepper.next()">Siguiente</button>
+                                    <button class="btn btn-primary" onclick="stepper.next()" type="button">Siguiente</button>
                                 </div>
                                 <div id="address" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger2">
                                     <div class="row">
@@ -184,8 +195,16 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
+                                                <label>Código Postal</label>
+                                                <input type="text" name="cp"
+                                                class="form-control">    
+                                            </div>   
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
                                                 <label>Municipio</label>
-                                                <select class="form-control" id="municipioDomicilio">
+                                                <select class="form-control" id="municipioDomicilio" name="municipio">
+
                                                     <option selected disabled>Seleccione un municipio</option>
                                                     @foreach($municipios as $municipio)
                                                         <option value="{{$municipio->id}}">{{ $municipio->nombre }}</option>
@@ -203,8 +222,8 @@
                                             
                                         </div>  
                                     </div>
-                                    <button class="btn btn-primary" onclick="stepper.previous()">Anterior</button>
-                                    <button class="btn btn-primary" onclick="stepper.next()">Siguiente</button>
+                                    <button class="btn btn-primary" onclick="stepper.previous()" type="button">Anterior</button>
+                                    <button class="btn btn-primary" onclick="stepper.next()" type="button">Siguiente</button>
                                 </div>
                                 <div id="documentation" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger3">
                                     <div class="row">
@@ -253,8 +272,8 @@
                                             </div>
                                         </div>  
                                     </div>
-                                    <button class="btn btn-primary" onclick="stepper.previous()">Anterior</button>
-                                    <button class="btn btn-primary" onclick="stepper.next()">Siguiente</button>
+                                    <button class="btn btn-primary" onclick="stepper.previous()" type="button">Anterior</button>
+                                    <button class="btn btn-primary" onclick="stepper.next()" type="button">Siguiente</button>
                                 </div>
                                 <div id="figuraSolidaria" role="tabpanel" class="bs-stepper-pane active" aria-labelledby="stepper1trigger3">
                                      <div class="row">
@@ -310,8 +329,8 @@
                                         </div>
                                         
                                     </div>
-                                    <button class="btn btn-primary" onclick="stepper.previous()">Anterior</button>
-                                    <button class="btn btn-success" onclick="stepper.next()">Guadar</button>
+                                    <button class="btn btn-primary" onclick="stepper.previous()" type="button">Anterior</button>
+                                    <button class="btn btn-success" type="submit">Guadar</button>
                                 </div>
                             </form>
                         </div>
