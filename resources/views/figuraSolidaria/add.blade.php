@@ -85,7 +85,12 @@
                                                 <label>
                                                     Apellido Paterno
                                                 </label>
-                                                <input type="text" name="apFiguraSolidaria" class="form-control">
+                                                <input type="text" name="apFiguraSolidaria" class="form-control {{ $errors->has('apFiguraSolidaria')?
+                                                'is-invalid' : ''}}"
+                                                value="{{old('apFiguraSolidaria')}}">
+                                                   @if($errors->has('apFiguraSolidaria'))
+                                                    <span class="text-danger">{{ $errors->first('apFiguraSolidaria') }}</span>
+                                                @endif
                                             </div>   
                                         </div>
                                     </div>
@@ -95,7 +100,12 @@
                                                 <label>
                                                     Apellido Materno
                                                 </label>
-                                                <input type="text" name="amFiguraSolidaria" class="form-control"> 
+                                                <input type="text" name="amFiguraSolidaria" class="form-control {{ $errors->has('amFiguraSolidaria')?
+                                                'is-invalid' : ''}}"
+                                                value="{{old('amFiguraSolidaria')}}">
+                                                   @if($errors->has('amFiguraSolidaria'))
+                                                    <span class="text-danger">{{ $errors->first('amFiguraSolidaria') }}</span>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -103,7 +113,12 @@
                                                 <label>
                                                     RFC
                                                 </label>
-                                                <input type="text" name="rfcFiguraSolidaria" class="form-control">                    
+                                                <input type="text" name="rfcFiguraSolidaria" class="form-control {{ $errors->has('rfcFiguraSolidaria')?
+                                                'is-invalid' : ''}}"
+                                                value="{{old('rfcFiguraSolidaria')}}">
+                                                   @if($errors->has('rfcFiguraSolidaria'))
+                                                    <span class="text-danger">{{ $errors->first('rfcFiguraSolidaria') }}</span>
+                                                @endif                
                                             </div>
                                         </div>
                                     </div>
@@ -137,7 +152,7 @@
                                          <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Estado Civil</label>
-                                                <select class="form-control">
+                                                <select class="form-control" name="registrosCivil">
                                                     <option>Seleccione una opción</option>
                                                     @foreach($registrosCivil as $registroCivil)
                                                         <option value="{{$registroCivil->id}}">{{$registroCivil->nombre}}</option>
@@ -148,7 +163,11 @@
                                          <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Celular</label>
-                                                <input type="text" name="celFiguraSolidaria" class="form-control">
+                                                <input type="text" name="celFiguraSolidaria" class="form-control {{ $errors->has('celFiguraSolidaria') ? 'is-invalid' : ''}}"
+                                                value="{{old('celFiguraSolidaria')}}">
+                                                @if($errors->has('celFiguraSolidaria'))
+                                                    <span class="text-danger">{{ $errors->first('celFiguraSolidaria') }}</span>
+                                                @endif
                                             </div>   
                                         </div>
                                     </div>
@@ -162,7 +181,7 @@
                                         <div class="col-md-6">
                                                 <div class="form-group">
                                                 <label>Servicio Médico</label>
-                                                <select class="form-control" name="serviociMedico">
+                                                <select class="form-control" name="seguroMedico">
                                                     <option  selected disabled >Selecciona una opción</option>
                                                 @foreach ( $SeguroMedico as $sm )
                                                 <option value="{{$sm->id}}">
@@ -180,14 +199,22 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Domicilio</label>
-                                                <input type="text" name="doFiguraSolidaria" class="form-control"> 
+                                                <input type="text" name="doFiguraSolidaria" class="form-control  {{ $errors->has('doFiguraSolidaria') ? 'is-invalid' : ''}}"
+                                                value="{{old('doFiguraSolidaria')}}">
+                                                @if($errors->has('doFiguraSolidaria'))
+                                                    <span class="text-danger">{{ $errors->first('doFiguraSolidaria') }}</span>
+                                                @endif 
                                             </div>
                                         </div> 
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Colonia</label>
                                                 <input type="text" name="coFiguraSolidaria"
-                                                class="form-control">    
+                                                class="form-control {{ $errors->has('coFiguraSolidaria') ? 'is-invalid' : ''}}"
+                                                value="{{old('coFiguraSolidaria')}}">
+                                                @if($errors->has('coFiguraSolidaria'))
+                                                    <span class="text-danger">{{ $errors->first('coFiguraSolidaria') }}</span>
+                                                @endif    
                                             </div>   
                                         </div>
                                     </div>
@@ -247,7 +274,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                             <label>Último grado de estudio</label>
-                                                <select class="form-control">
+                                                <select class="form-control" name="escolaridad">
                                                     <option selected disabled >Selecciona una opcion</option>
                                                     @foreach ($escolaridad as $es)
                                                     <option value="{{$es->id}}"> {{$es->nombre}} </option>
@@ -304,7 +331,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Coordinacion de Zona</label>
-                                                <select class="form-control">
+                                                <select class="form-control" name="coordinacionZona">
                                                     <option selected disabled>Seleccione coordinación de zona</option>
                                                     @foreach($coordinacionZona as $cz)
                                                         <option value="{{$cz->id}}">
@@ -317,10 +344,10 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Rol</label>
-                                                <select class="form-control">
+                                                <select class="form-control" name="rol">
                                                     <option selected disabled>Seleccione un rol</option>
                                                     @foreach($rol as $rol)
-                                                        <option value="{{$rol }}">
+                                                        <option value="{{$rol->no_rol }}">
                                                         {{$rol->no_rol }}&nbsp; 
                                                         {{$rol->nombre}}</option>
                                                     @endforeach
