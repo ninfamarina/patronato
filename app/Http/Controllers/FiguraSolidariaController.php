@@ -68,7 +68,7 @@ class FiguraSolidariaController extends Controller
             "cartaCompromiso" =>"required|file|mimes:pdf",
             "fechaRegistro" =>"required | date",
             "fechaReincorporacion"=> "required| date",
-            "coordinacionZona" => "required",
+            "coordinacionZona" => "required|array|min:1",
             "rol"=> "required",
             "escolaridad" => "required"],
             [
@@ -115,10 +115,6 @@ class FiguraSolidariaController extends Controller
             'escolaridad.required' => 'El último grado de estudio es requerido']);
 
 
-        /*if($validacion->fails())
-                return redirect()->back()->withInput();
-*/
-
         $nombreFiguraSolidaria = $request->input('nombreFiguraSolidaria');
         $apFiguraSolidaria = $request->input('apFiguraSolidaria');
         $amFiguraSolidaria = !empty($request->input('amFiguraSolidaria')) ?
@@ -156,7 +152,7 @@ class FiguraSolidariaController extends Controller
 
 
         try {
-            FiguraSolidaria::create([
+            $figuraSolidaria = FiguraSolidaria::create([
                 "rfc" => $rfcFiguraSolidaria,
                 "nombre" => $nombreFiguraSolidaria,
                 "apellido_paterno" => $apFiguraSolidaria,
@@ -180,9 +176,12 @@ class FiguraSolidariaController extends Controller
 
             ]);
 
+            $figuraSolidaria->coordinacionZonas->attach($coordinacionZona[0]);
+
             return redirect()->back()->with('message', 'Datos guardado correctamente');
 
         } catch(\Exception $e) {
+            dd($e->getMessage());
             $request->session()->flash('error-message', 'Ocurrió un error al intentar almacenar los datos de la figura solidaria'); 
         }
 

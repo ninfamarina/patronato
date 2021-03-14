@@ -153,7 +153,7 @@
                                             <div class="form-group">
                                                 <label>Estado Civil</label>
                                                 <select class="form-control" name="registrosCivil">
-                                                    <option>Seleccione una opción</option>
+                                                    <option selected disabled>Seleccione una opción</option>
                                                     @foreach($registrosCivil as $registroCivil)
                                                         <option value="{{$registroCivil->id}}">{{$registroCivil->nombre}}</option>
                                                     @endforeach
@@ -175,7 +175,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Hijos</label>
-                                                <input type="number" name="hijosFiguraSolidaria" class="form-control" min="0" > 
+                                                <input type="number" name="hijosFiguraSolidaria" class="form-control" min="0" value="0"> 
                                             </div> 
                                         </div>
                                         <div class="col-md-6">
@@ -331,8 +331,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Coordinacion de Zona</label>
-                                                <select class="form-control" name="coordinacionZona">
-                                                    <option selected disabled>Seleccione coordinación de zona</option>
+                                                 <select class="form-control coordinacionZonaSelect" name="coordinacionZona[]" multiple="multiple" data-placeholder="Selecciona una coordinacion de Zona"  style="width: 100%;">
                                                     @foreach($coordinacionZona as $cz)
                                                         <option value="{{$cz->id}}">
                                                             {{$cz->num_coordinacion}}
@@ -392,21 +391,22 @@
 @stop
 @section('js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
     <script type="text/javascript">
-        
-        $(function () {
+        $(document).ready(function () {
+            $('.coordinacionZonaSelect').select2();
+
             $('#fechaNacimiento').datepicker({
                 autoclose: true,
                 todayHighlight: true
             });
-        });
-        $(function () {
+
             $('#fechaRegistro').datepicker({
                 autoclose: true,
                 todayHighlight: true
             });
-        });
-        $(function () {
+
             $('#fechaReincorporacion').datepicker({
                 autoclose: true,
                 todayHighlight: true

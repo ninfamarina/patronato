@@ -14,7 +14,7 @@
     @include('adminlte::plugins', ['type' => 'css'])
 
     @yield('adminlte_css_pre')
-
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.min.css') }}">
 
     @yield('adminlte_css')

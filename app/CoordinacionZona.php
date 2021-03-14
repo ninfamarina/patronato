@@ -16,11 +16,6 @@ class CoordinacionZona extends Model
 
     public function figurasSolidarias()
     {
-    	return $this->hasMany('App\FiguraSolidaria');
-    }
-
-    public function getTotalFiguraSolidariasAttribute()
-    {
-    	return $this->hasMany('App\FiguraSolidaria')->count();
+        return $this->belongsToMany('App\FiguraSolidaria', 'FiguraSolidaria_has_coordinacion', 'coordinacionDeZona_id', 'figuraSolidaria_id', );
     }
 }
