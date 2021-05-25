@@ -16,6 +16,7 @@ class CoordinacionZona extends Model
 
     public function figurasSolidarias()
     {
-        return $this->belongsToMany('App\FiguraSolidaria'/*, 'FiguraSolidaria_has_coordinacion', 'coordinacionDeZona_id', 'figuraSolidaria_id'*/);
+        return $this->BelongsToMany('App\FiguraSolidaria', 'FiguraSolidaria_has_coordinacion', 'coordinacionDeZona_id', 'figuraSolidaria_id')
+            ->withPivot('created_at');
     }
 }

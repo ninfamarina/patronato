@@ -37,7 +37,7 @@
                                       <h2 class="float-left text-light">{{$coordinacionZona->num_coordinacion}}</h2>
                                     </div>
                                     <h3 class="widget-user-username text-light">{{$coordinacionZona->nombre}}</h3>
-                                    <h5 class="widget-user-desc text-light"><i class="fas fa-users"></i> {{$coordinacionZona->TotalFiguraSolidarias}}</h5>
+                                    <h5 class="widget-user-desc text-light"><i class="fas fa-users"></i> {{ $coordinacionZona->figurasSolidarias()->count() }}</h5>
                                 </div>
                                 <div class="card-footer p-0">
                                     <ul class="nav flex-column">
