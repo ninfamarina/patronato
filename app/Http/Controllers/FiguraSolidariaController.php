@@ -8,6 +8,7 @@ use App\SeguroMedico;
 use App\RolFiguraSolidaria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File; 
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class FiguraSolidariaController extends Controller
@@ -150,8 +151,8 @@ class FiguraSolidariaController extends Controller
         $nombrecartaCompromiso = $request->cartaCompromiso->getClientOriginalName();
         $request->file('cartaCompromiso')->storePubliclyAs('documentos', $nombrecartaCompromiso, 'public');
 
-
         try {
+            DB::beginTransaction();
             $figuraSolidaria = FiguraSolidaria::create([
                 "rfc" => $rfcFiguraSolidaria,
                 "nombre" => $nombreFiguraSolidaria,
@@ -173,14 +174,14 @@ class FiguraSolidariaController extends Controller
                 "seguro_medico_id" => $seguroMedico,
                 "escolaridad_id" =>$escolaridad,
                 "registro_civil_id" => $registrosCivil
-
             ]);
-
-            $figuraSolidaria->coordinacionZonas->attach($coordinacionZona[0]);
-
+            foreach($coordinacionZona as $c)
+                $figuraSolidaria->coordinacionDeZonas()->attach($c);
+            DB::commit();
             return redirect()->back()->with('message', 'Datos guardado correctamente');
 
         } catch(\Exception $e) {
+            DB::rollBack();
             dd($e->getMessage());
             $request->session()->flash('error-message', 'Ocurrió un error al intentar almacenar los datos de la figura solidaria'); 
         }
