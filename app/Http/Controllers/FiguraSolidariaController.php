@@ -20,7 +20,8 @@ class FiguraSolidariaController extends Controller
      */
     public function index()
     {
-        return view('figuraSolidaria/index', ['titulo' => 'Figura Solidaria']);
+        $municipios = \App\Municipio::all();
+        return view('figuraSolidaria/index', ['titulo' => 'Figura Solidaria', "municipios" => $municipios]);
     }
 
     /**

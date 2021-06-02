@@ -23,9 +23,9 @@
             @endif
             <div class="card">
                 <div class="card-header">
-                    <div class="card-tools">
-                        <a href="{{route('rolFiguraSolidaria.agregar')}}" class="btn btn-success">Agregar&nbsp;<i class="fas fa-plus-circle"></i></a>
-                    </div>
+                    <div class="col-md-4 offset-md-8 offset-sm-0">
+                            <a href="{{route('rolFiguraSolidaria.agregar')}}" class="btn btn-success btn-block">Agregar&nbsp;<i class="fas fa-plus-circle"></i></a>
+                        </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped table-valign-middle">
