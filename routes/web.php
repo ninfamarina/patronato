@@ -24,6 +24,9 @@ Route::get('/home', function() {
 Route::get('/figuraSolidaria', 'FiguraSolidariaController@index')->name('figuraSolidaria.index');
 Route::get('/figuraSolidaria/agregar', 'FiguraSolidariaController@create')->name('figuraSolidaria.agregar');
 Route::post('/figuraSolidaria/guardar', 'FiguraSolidariaController@store')->name('figuraSolidaria.guardar');
+Route::post('/figuraSolidaria/filter', 'FiguraSolidariaController@filter')->name('figuraSolidaria.filter');
+
+
 
 Route::get('/municipio', 'MunicipioController@index')->name('municipio.index');
 Route::get('/municipio/agregar', 'MunicipioController@create')->name('municipio.agregar');
@@ -32,6 +35,7 @@ Route::post('/municipio/guardar','MunicipioController@store')->name('municipio.g
 Route::put('/municipio/update/{id}','MunicipioController@update')->name('municipio.update');
 Route::delete('/municipio/{id}','MunicipioController@destroy')->name('municipio.eliminar');
 Route::get('/municipio/{id}/ciudades','MunicipioController@withCiudades')->name('municipio.ciudades');
+Route::get('/municipio/{id}/coordinazionZona','MunicipioController@withCoordinacion')->name('municipio.coordinacionZona');
 
 Route::get('/seguroMedico', 'SeguroMedicoController@index')->name('seguroMedico.index');
 Route::get('/seguroMedico/agregar', 'SeguroMedicoController@create')->name('seguroMedico.agregar');

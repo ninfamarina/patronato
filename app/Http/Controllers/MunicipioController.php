@@ -119,4 +119,10 @@ class MunicipioController extends Controller
             ->where('id', $id)->first();
         return response()->json(array("municipio" => $municipio));
     }
+
+    public function withCoordinacion($id) {
+        $municipio = Municipio::with(['coordinacionZonas'])
+            ->where('id', $id)->first();
+        return response()->json(array("municipio" => $municipio));
+    }
 }

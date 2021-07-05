@@ -6,6 +6,7 @@ use App\FiguraSolidaria;
 use App\RegistroCivil;
 use App\SeguroMedico;
 use App\RolFiguraSolidaria;
+use App\CoordinacionZona;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File; 
 use Illuminate\Support\Facades\DB;
@@ -232,5 +233,21 @@ class FiguraSolidariaController extends Controller
     public function destroy(FiguraSolidaria $figuraSolidaria)
     {
         //
+    }
+
+    public function filter(Request $request, FiguraSolidaria $figuraSolidaria) {
+        $firguraSolidaria = $figuraSolidaria->newQuery();
+
+        $validacion = $request->validate([
+            "coordinacionZona" =>"required",
+        ],
+        ["coordinacionZona.required" => "La coordinación de zona es requerida"]);
+
+        $coordinacionZonaId = $request->input('coordinacionZona');
+
+        $coordinacionZona = CoordinacionZona::with("figurasSolidarias")->where("id", $coordinacionZonaId)->first();
+
+        return response()->json(array('figurasSolidaria' => $coordinacionZona->figurasSolidarias));
+
     }
 }
