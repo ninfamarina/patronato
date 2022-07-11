@@ -15,7 +15,7 @@ class AddFkFiguraSolidariasTable extends Migration
     {
         Schema::table('figuras_solidarias', function (Blueprint $table) {
             $table->unsignedBigInteger('seguro_medico_id');
-            $table->unsignedBigInteger('escolaridad_id');
+            $table->unsignedBigInteger('escolaridad_id')->nullable();
             $table->unsignedBigInteger('registro_civil_id');
             $table->foreign('seguro_medico_id')->references('id')->on('seguro_medico');
             $table->foreign('escolaridad_id')->references('id')->on('escolaridad');

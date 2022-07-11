@@ -113,11 +113,24 @@
                                                 <label>
                                                     RFC
                                                 </label>
-                                                <input type="text" name="rfcFiguraSolidaria" class="form-control {{ $errors->has('rfcFiguraSolidaria')?
+                                                <input type="text" name="rfcFiguraSolidaria" maxlength="13" class="form-control {{ $errors->has('rfcFiguraSolidaria')?
                                                 'is-invalid' : ''}}"
                                                 value="{{old('rfcFiguraSolidaria')}}">
                                                    @if($errors->has('rfcFiguraSolidaria'))
                                                     <span class="text-danger">{{ $errors->first('rfcFiguraSolidaria') }}</span>
+                                                @endif                
+                                            </div>
+                                        </div>
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>
+                                                    CURP
+                                                </label>
+                                                <input type="text" name="curpFiguraSolidaria" maxlength="18" class="form-control {{ $errors->has('curpFiguraSolidaria')?
+                                                'is-invalid' : ''}}"
+                                                value="{{old('curpFiguraSolidaria')}}">
+                                                   @if($errors->has('curpFiguraSolidaria'))
+                                                    <span class="text-danger">{{ $errors->first('curpFiguraSolidaria') }}</span>
                                                 @endif                
                                             </div>
                                         </div>
@@ -295,6 +308,13 @@
                                             <div class="form-group">
                                                 <label>Carta compromiso</label>
                                                 <input type="file" name="cartaCompromiso"
+                                                class="form-control">
+                                            </div>
+                                        </div>  
+                                         <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Comprobante domicilio</label>
+                                                <input type="file" name="comprobanteDomicilio"
                                                 class="form-control">
                                             </div>
                                         </div>  

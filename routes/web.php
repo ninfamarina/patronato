@@ -23,6 +23,8 @@ Route::get('/home', function() {
 
 Route::get('/figuraSolidaria', 'FiguraSolidariaController@index')->name('figuraSolidaria.index');
 Route::get('/figuraSolidaria/agregar', 'FiguraSolidariaController@create')->name('figuraSolidaria.agregar');
+Route::get('figuraSolidaria/get/{filename}', 'FiguraSolidariaController@getFile')->name('getfile');
+Route::get('/figuraSolidaria/{id}', 'FiguraSolidariaController@show')->name('figuraSolidaria.show');
 Route::post('/figuraSolidaria/guardar', 'FiguraSolidariaController@store')->name('figuraSolidaria.guardar');
 Route::post('/figuraSolidaria/filter', 'FiguraSolidariaController@filter')->name('figuraSolidaria.filter');
 

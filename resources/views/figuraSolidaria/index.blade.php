@@ -8,27 +8,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-12">
-            @if(session()->has('message'))
-                <div class="alert alert-success">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    {{ session()->get('message') }}
-                </div>
-            @endif
-            @if($errors->any())
-                <div class="alert alert-danger">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <ul>
-                    @if(session()->has('error-message'))
-                         <li>{{ $error }}</li>
-                    @else
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    @endif
-                    </ul>
-                </div>
-            @endif
+        <div class="col-12 alertable">
             <div class="card">
                 <div class="card-header">
                     
@@ -77,7 +57,12 @@
                         <table class="table table-striped table-valign-middle" id="tblFigurasSolidaria">
                             <thead>
                                 <tr>
+                                    <th>CZ</th>
+                                    <th>Rol</th>
                                     <th>Nombre</th>
+                                    <th>Apellido Paterno</th>
+                                    <th>Apellido Materno</th>
+                                    <th>Opciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -91,6 +76,7 @@
     </div>
 @stop
 @push('scripts')
+    <script src="{{ asset('js/utils.js') }}"></script>
     <script src="{{ asset('js/CoordinacionZonaFilter.js') }}"></script>
     <script type="text/javascript">
         const url = `/figuraSolidaria/filter`
@@ -114,20 +100,35 @@
             fetch(url, options)
             .then(response => response.json())
             .then(data => {
-                const {figurasSolidaria} = data
+                const {cz, result} = data
+                if(result < 1){
+                    warningAlert("La búsqueda no generó resultados");
+                    return
+                }
+                const {figuras_solidarias: figurasSolidaria} = cz;
+                clearAlerts();
                 const tblFigurasSolidaria = document.querySelector("#tblFigurasSolidaria")
                 const [tbody] = tblFigurasSolidaria.tBodies
                 tbody.innerHTML = ""
                 let figuraSolidariaRow = ""
-                
+                console.log(figurasSolidaria)
                 for(const figuraSolidaria of figurasSolidaria) {
                     figuraSolidariaRow += `
                         <tr>
+                            <td>${cz.nombre}</td>
+                            <td>figuraSolidaria.rol</td>
                             <td>${figuraSolidaria.nombre}</td>
+                            <td>${figuraSolidaria.apellido_paterno}</td>
+                            <td>${figuraSolidaria.apellido_materno}</td>
+                            <td><a href="figuraSolidaria/${figuraSolidaria.id}"><i class="fas fa-eye"></i></a></td>
+
                         </tr>
                     `
                 }
                 tbody.innerHTML = figuraSolidariaRow
+            })
+            .catch(err =>  {
+                console.log(err);
             })
         })
         

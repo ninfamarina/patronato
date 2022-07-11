@@ -10,10 +10,13 @@ use App\CoordinacionZona;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File; 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Response;
 use Carbon\Carbon;
 
 class FiguraSolidariaController extends Controller
 {
+    const EXT = ".pdf";
     /**
      * Display a listing of the resource.
      *
@@ -55,6 +58,7 @@ class FiguraSolidariaController extends Controller
             "apFiguraSolidaria" =>"required | max:45 | min:1",
             "amFiguraSolidaria" =>"required | max:45 | min:1",
             "rfcFiguraSolidaria" => "required | size:13",
+            "curpFiguraSolidaria"=> "required | size:18",
             "fechaNacimiento"=> "required | date",
             "sexo" =>"required | in:masculino,femenino",
             "registrosCivil" => "required",
@@ -68,12 +72,13 @@ class FiguraSolidariaController extends Controller
             "comprobanteIne" => "required|file|mimes:pdf",
             "comprobanteCurp" =>"required|file|mimes:pdf",
             "comprobanteGradoEstudio" =>"required|file|mimes:pdf",
+            "comprobanteDomicilio" =>"required|file|mimes:pdf",
             "cartaCompromiso" =>"required|file|mimes:pdf",
             "fechaRegistro" =>"required | date",
             "fechaReincorporacion"=> "required| date",
             "coordinacionZona" => "required|array|min:1",
             "rol"=> "required",
-            "escolaridad" => "required"],
+            /*"escolaridad" => "required"*/],
             [
             'nombreFiguraSolidaria.required'=> 'El nombre de la figura solidaria no puede estar vacío',
                 'nombreFiguraSolidaria.max'=> 'El nombre de la figura solidaria no puede tener más de 45 caracteres',
@@ -86,6 +91,8 @@ class FiguraSolidariaController extends Controller
              'amFiguraSolidaria.min' => 'El apellido materno de la figura solidaria puede tener menos de 5 caractéres',
              'rfcFiguraSolidaria.required' => "El campo rfc no puede estar vacío",
              'rfcFiguraSolidaria.size'=> 'El campo del rfc debe tener 13 caractéres',
+             'curpFiguraSolidaria.required' => "El campo curp no puede estar vacío",
+             'curpFiguraSolidaria.size'=> 'El campo del curp debe tener 18 caractéres',
              'fechaNacimiento.required'=> 'El campo de fecha de nacimiento no debe estar vacio',
              'sexo.required'=> 'El sexo debe ser seleccionado',
              'sexo.in'=> 'EL formato del valor sexo es incorrecto',
@@ -99,7 +106,7 @@ class FiguraSolidariaController extends Controller
              'coFiguraSolidaria.required'=>'El campo de colonia no debe estar vacío',
              'municipio.required' => 'El campo de Municipiono debe estar vacio',
              'ciudadesDomicilio.required'=> 'El campo de localidad no debe estar vacio',
-             'comprobanteIne.required'=> 'El archivo Ine no fue cargado',
+             /*'comprobanteIne.required'=> 'El archivo Ine no fue cargado',
              'comprobanteIne.file'=> 'El archivo no es un documento',
              'comprobanteIne.mimes'=> 'El formato del archivo debe ser PDF',
              'comprobanteCurp.required'=> 'El archivo Curp no fue cargado',
@@ -107,7 +114,10 @@ class FiguraSolidariaController extends Controller
              'comprobanteCurp.mimes'=> 'El formato del archivo debe ser PDF',
              'comprobanteGradoEstudio.required'=> 'El archivo Comprobante grado de estudios no fue cargado',
              'comprobanteGradoEstudio.file'=> 'El archivo no es un documento',
-             'comprobanteGradoEstudio.mimes'=> 'El formato del archivo debe ser PDF',
+             'comprobanteGradoEstudio.mimes'=> 'El formato del archivo debe ser PDF',*/
+            'comprobanteDomicilio.required'=> 'El archivo Comprobante domicilio no fue cargado',
+             'comprobanteDomicilio.file'=> 'El archivo no es un documento',
+             'comprobanteDomicilio.mimes'=> 'El formato del archivo debe ser PDF',
              'cartaCompromiso.required'=> 'El archivo Carta compromiso no fue cargado',
              'cartaCompromiso.file'=> 'El archivo no es un documento',
              'cartaCompromiso.mimes'=> 'El formato del archivo debe ser PDF',
@@ -115,7 +125,7 @@ class FiguraSolidariaController extends Controller
              'fechaReincorporacion.required'=>'El campo fecha de reincorporacion no debe estar vacio',
              'coordinacionZona.required'=>'El campo de coordinacion de zona no debe estar vacio',
              'rol.required'=>'El campo de rol no debe estar vacio',
-            'escolaridad.required' => 'El último grado de estudio es requerido']);
+            /*'escolaridad.required' => 'El último grado de estudio es requerido'*/]);
 
 
         $nombreFiguraSolidaria = $request->input('nombreFiguraSolidaria');
@@ -123,6 +133,7 @@ class FiguraSolidariaController extends Controller
         $amFiguraSolidaria = !empty($request->input('amFiguraSolidaria')) ?
             $request->input('amFiguraSolidaria') : null;
         $rfcFiguraSolidaria = $request->input('rfcFiguraSolidaria');
+        $curpFiguraSolidaria = $request->input('curpFiguraSolidaria');
         $fechaNacimiento = $request->input('fechaNacimiento');
         $sexo = $request->input('sexo');
         $registrosCivil = $request->input('registrosCivil');
@@ -139,24 +150,39 @@ class FiguraSolidariaController extends Controller
         $rol = $request->input('rol');
         $cp = !empty($request->input('cp')) ?
             $request->input('cp') : null;
-        $escolaridad = $request->input('escolaridad');
 
-         $nombreComprobanteIne = $request->comprobanteIne->getClientOriginalName();
-        $request->file('comprobanteIne')->storePubliclyAs('documentos', $nombreComprobanteIne, 'public');
+        $escolaridad = !empty($request->input('escolaridad')) ? $request->input('escolaridad') : null;
+        if($request->hasFile('comprobanteIne')) {
+            $nombreComprobanteIne =  $this->getRandomName($request->comprobanteIne->getClientOriginalName(), "INE").self::EXT;
+            $request->file('comprobanteIne')->storePubliclyAs('documentos', $nombreComprobanteIne, 'public');
+        }
 
-        $nombrecomprobanteCurp = $request->comprobanteCurp->getClientOriginalName();
-        $request->file('comprobanteCurp')->storePubliclyAs('documentos', $nombrecomprobanteCurp, 'public');
+        if($request->hasFile('comprobanteCurp')) {
+            $nombrecomprobanteCurp =  $this->getRandomName($request->comprobanteCurp->getClientOriginalName(), "CURP").self::EXT;
+            $request->file('comprobanteCurp')->storePubliclyAs('documentos', $nombrecomprobanteCurp, 'public');
+        }
+        
 
-        $nombrecomprobanteGradoEstudio = $request->comprobanteGradoEstudio->getClientOriginalName();
-        $request->file('comprobanteGradoEstudio')->storePubliclyAs('documentos', $nombrecomprobanteGradoEstudio, 'public');
+        if($request->hasFile('comprobanteGradoEstudio')) {
+             $nombrecomprobanteGradoEstudio =  $this->getRandomName($request->comprobanteGradoEstudio->getClientOriginalName(), "GRADO_ESTUDIO").self::EXT;
+            $request->file('comprobanteGradoEstudio')->storePubliclyAs('documentos', $nombrecomprobanteGradoEstudio, 'public');   
+        }
 
-        $nombrecartaCompromiso = $request->cartaCompromiso->getClientOriginalName();
-        $request->file('cartaCompromiso')->storePubliclyAs('documentos', $nombrecartaCompromiso, 'public');
+        if($request->hasFile('comprobanteDomicilio')) {
+             $nombrecomprobanteDomicilio =  $this->getRandomName($request->comprobanteDomicilio->getClientOriginalName(), "DOMICILIO").self::EXT;
+            $request->file('comprobanteDomicilio')->storePubliclyAs('documentos', $nombrecomprobanteDomicilio, 'public');
+        }
+        
+        if($request->hasFile('cartaCompromiso')) {
+             $nombrecartaCompromiso =  $this->getRandomName($request->cartaCompromiso->getClientOriginalName(), "CARTA_COMPROMISO").self::EXT;
+            $request->file('cartaCompromiso')->storePubliclyAs('documentos', $nombrecartaCompromiso, 'public');
+        }
 
         try {
             DB::beginTransaction();
             $figuraSolidaria = FiguraSolidaria::create([
                 "rfc" => $rfcFiguraSolidaria,
+                "curp" => $curpFiguraSolidaria,
                 "nombre" => $nombreFiguraSolidaria,
                 "apellido_paterno" => $apFiguraSolidaria,
                 "apellido_materno" => $amFiguraSolidaria,
@@ -164,15 +190,17 @@ class FiguraSolidariaController extends Controller
                 "sexo" =>$sexo,
                 "domicilio" => $doFiguraSolidaria,
                 "colonia" =>$coFiguraSolidaria,
+                "ciudad_id" => $ciudadesDomicilio,
                 "hijos" =>$hijosFiguraSolidaria ,
                 "codigo_postal" => $cp,
                 "telefono" => $celFiguraSolidaria,
                 "fecha_registro" =>Carbon::parse($fechaRegistro)->format('Y-m-d'),
                 "fecha_incorporacion" => Carbon::parse($fechaReincorporacion)->format('Y-m-d'),
                 "carta_compromiso" => $nombrecartaCompromiso,
-                "comprobante_ine" => $nombreComprobanteIne,
-                "comprobante_curp" => $nombrecomprobanteCurp,
-                "comprobante_grado_estudio" => $nombrecomprobanteGradoEstudio,
+                "comprobante_ine" => (isset($nombreComprobanteIne) ? $nombreComprobanteIne : null),
+                "comprobante_curp" => (isset($nombrecomprobanteCurp) ? $nombrecomprobanteCurp : null),
+                "comprobante_grado_estudio" => (isset($nombrecomprobanteGradoEstudio) ? $nombrecomprobanteGradoEstudio : null),
+                "comprobante_domicilio" => (isset($nombrecomprobanteDomicilio) ? $nombrecomprobanteDomicilio : null),
                 "seguro_medico_id" => $seguroMedico,
                 "escolaridad_id" =>$escolaridad,
                 "registro_civil_id" => $registrosCivil
@@ -196,9 +224,13 @@ class FiguraSolidariaController extends Controller
      * @param  \App\FiguraSolidaria  $figuraSolidaria
      * @return \Illuminate\Http\Response
      */
-    public function show(FiguraSolidaria $figuraSolidaria)
+    public function show($id)
     {
-        //
+        $figuraSolidaria = FiguraSolidaria::where('id', $id)->with('registroCivil', 'seguroMedico', 'ciudad.municipio')->firstOrFail();
+       
+       //die($figuraSolidaria->registroCivil);
+
+        return view('figuraSolidaria/show', ['titulo' => 'Figura Solidaria', 'figuraSolidaria' => $figuraSolidaria]);
     }
     
     /**
@@ -246,8 +278,22 @@ class FiguraSolidariaController extends Controller
         $coordinacionZonaId = $request->input('coordinacionZona');
 
         $coordinacionZona = CoordinacionZona::with("figurasSolidarias")->where("id", $coordinacionZonaId)->first();
+        $result = !is_null($coordinacionZona) ? count($coordinacionZona->figurasSolidarias) : 0; 
+        
+        return response()->json(array('cz' => $coordinacionZona, 'result' => $result));
 
-        return response()->json(array('figurasSolidaria' => $coordinacionZona->figurasSolidarias));
+    }
+
+    function getFile($filename){
+       $myFile = public_path($filename);
+    $headers = ['Content-Type: application/pdf'];
+    return Storage::download("public/documentos/".$filename, $filename, $headers);
+    }
+
+    private function getRandomName($originalName, $type) {        
+            $originalName =  strtolower(trim($originalName));
+            $rndName = time().rand(100,999)."-".$type;
+            return $rndName;
 
     }
 }

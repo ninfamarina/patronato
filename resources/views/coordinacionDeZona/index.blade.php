@@ -32,7 +32,7 @@
                          @foreach($coordinacionZonas as $coordinacionZona)
                         <div class="col-md-4 col-sm-6 col-12">
                             <div class="card card-widget widget-user-2">
-                                <div class="widget-user-header bg-lightblue">
+                                <div class="widget-user-header bg-gray">
                                     <div class="widget-user-image">
                                       <h2 class="float-left text-light">{{$coordinacionZona->num_coordinacion}}</h2>
                                     </div>

@@ -16,6 +16,7 @@ class CreateFigurasSolidariasTable extends Migration
         Schema::create('figuras_solidarias', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->char('rfc', 18);
+            $table->char('curp',18);
             $table->string('nombre', 60);
             $table->string('apellido_paterno', 45);
             $table->string('apellido_materno', 45)->nullable();
@@ -29,9 +30,11 @@ class CreateFigurasSolidariasTable extends Migration
             $table->date('fecha_registro');
             $table->date('fecha_incorporacion');
             $table->string('carta_compromiso',250);
-            $table->string('comprobante_ine',250);
-            $table->string('comprobante_curp',250);
-            $table->string('comprobante_grado_estudio',250);
+            $table->string('comprobante_ine',250)->nullable();
+            $table->string('comprobante_curp',250)->nullable();
+            $table->string('comprobante_grado_estudio',250)->nullable();
+            $table->string('comprobante_domicilio',250)->nullable();
+            
             $table->timestamps();
         });
     }
