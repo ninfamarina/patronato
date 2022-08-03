@@ -9,7 +9,7 @@
 				const {municipio: municipioSelected} = data
 				let {coordinacion_zonas} = municipioSelected
 				let coodinacionZona = ""
-				
+				coordinacion_zonas.unshift({id: -1, nombre: "Seleccione una opción"});
 				for(const m of coordinacion_zonas) {
 					coodinacionZona +=`<option value="${m.id}">${m.nombre}</option>`	
 				}

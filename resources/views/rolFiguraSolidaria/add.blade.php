@@ -52,7 +52,7 @@
                         </div>
                         <div class="row">
                             <div class="col-6">
-                              <a href="#" class="btn btn-secondary">Cancel</a>
+                              <a href="{{route('rolFiguraSolidaria.index')}}" class="btn btn-secondary">Cancel</a>
                               <input type="submit" value="Guardar" class="btn btn-success float-right">
                             </div>    
                         </div>

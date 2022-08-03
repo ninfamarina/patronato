@@ -7,6 +7,7 @@ use App\RegistroCivil;
 use App\SeguroMedico;
 use App\RolFiguraSolidaria;
 use App\CoordinacionZona;
+use App\Municipio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File; 
 use Illuminate\Support\Facades\DB;
@@ -270,7 +271,7 @@ class FiguraSolidariaController extends Controller
     public function filter(Request $request, FiguraSolidaria $figuraSolidaria) {
         $firguraSolidaria = $figuraSolidaria->newQuery();
 
-        $validacion = $request->validate([
+        /*$validacion = $request->validate([
             "coordinacionZona" =>"required",
         ],
         ["coordinacionZona.required" => "La coordinación de zona es requerida"]);
@@ -280,8 +281,48 @@ class FiguraSolidariaController extends Controller
         $coordinacionZona = CoordinacionZona::with("figurasSolidarias")->where("id", $coordinacionZonaId)->first();
         $result = !is_null($coordinacionZona) ? count($coordinacionZona->figurasSolidarias) : 0; 
         
-        return response()->json(array('cz' => $coordinacionZona, 'result' => $result));
+        return response()->json(array('cz' => $coordinacionZona, 'result' => $result));*/
+        $validacion = $request->validate([
+            "municipioId" =>"required",
+        ],
+        ["municipioId.required" => "El municipio es requerida"]);
 
+        $municipioId = $request->input('municipioId');
+        $municipio = Municipio::where("id", $municipioId);
+        //::with(['coordinacionZonas.figurasSolidarias'])
+           
+         $municipio = $municipio->with(['coordinacionZonas' => function($q) use($request) {
+                if($request->input('coordinacionZona'))
+                    $q->where('id', $request->input('coordinacionZona'));
+                $q->with(['figurasSolidarias' => function($q) use($request) {
+                    if($request->input('figuraSolidaria'))
+                        $q->where('curp', $request->input('figuraSolidaria'));
+                }]); 
+            }]); 
+
+       /* if($request->input('coordinacionZona')) {
+            $coordinacionZonaId = $request->input('coordinacionZona');
+            $municipio = $municipio->with(['coordinacionZonas' => function($q) use($coordinacionZonaId) {
+                $q->where('id', $coordinacionZonaId);
+            }]);
+        } else {
+             $municipio = $municipio->with('coordinacionZonas'); 
+        }
+
+
+       if($request->input('figuraSolidarias')) {
+            $figuraSolidariaId = $request->input('figuraSolidarias');
+            $municipio = $municipio->with(['coordinacionZonas.figurasSolidarias' => function($q) use($figuraSolidariaId) {
+                $q->where('id', $figuraSolidariaId);
+            }]);
+        } else {
+             $municipio = $municipio->with('coordinacionZonas.figurasSolidarias'); 
+        }*/
+
+        //$result = !is_null($municipio) ? count($municipiocoordinacionZona->figurasSolidarias) : 0; 
+        
+        //return response()->json(array('cz' => $coordinacionZona/*, 'result' => $result*/));
+        return response()->json(array('municipio' => $municipio->first()));
     }
 
     function getFile($filename){

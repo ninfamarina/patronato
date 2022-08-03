@@ -178,11 +178,6 @@ return [
 
     'menu' => [
         [
-            'text' => 'search',
-            'search' => true,
-            'topnav' => true,
-        ],
-        [
             'text' => 'Coordinacion de Zona',
             'url'  => '/coordinacion-zona',
             'icon' => 'fas fa-building',

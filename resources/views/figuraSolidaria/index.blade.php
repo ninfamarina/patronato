@@ -24,8 +24,8 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>Municipio</label>
-                                    <select class="form-control" id="municipio">
+                                    <label>Municipio <span class="text-danger">*</span></label>
+                                    <select class="form-control" id="municipio" name="municipio">
                                         <option value="-1" disabled selected>Seleccione una opción</option>
                                          @foreach($municipios as $municipio)
                                             <option value="{{$municipio->id}}">{{$municipio->nombre}}</option>
@@ -44,7 +44,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label>Nombre/CURP</label>
-                                <input type="" name="figuraSolidaria" class="form-control" placeholder="Nombre/CURP">
+                                <input type="" id="figuraSolidaria" name="figuraSolidaria" class="form-control" placeholder="Nombre/CURP">
                             </div>
                         </div>
                         <div class="row">
@@ -59,6 +59,7 @@
                                 <tr>
                                     <th>CZ</th>
                                     <th>Rol</th>
+                                    <th>CURP</th>
                                     <th>Nombre</th>
                                     <th>Apellido Paterno</th>
                                     <th>Apellido Materno</th>
@@ -83,7 +84,18 @@
         const frmSearchFiguraSolidaria = document.querySelector("#frmSearchFiguraSolidaria");
         frmSearchFiguraSolidaria.addEventListener("submit", e => {
             e.preventDefault()
+            const municipioSelect = document.querySelector("#municipio");
             const coordinacionZonaSelect = document.querySelector("#coordinacionZona");
+            const params = new Map(); 
+            if(coordinacionZonaSelect && coordinacionZonaSelect.value != -1)
+                params.set("coordinacionZona", coordinacionZonaSelect.value)
+
+            const figuraSolidaria = document.querySelector('#figuraSolidaria');
+            
+            if(figuraSolidaria && figuraSolidaria.value.trim() != '')
+                params.set("figuraSolidaria", figuraSolidaria.value);
+            
+            const queryParams = setQueryParams(params);
 
             const options = {
                 headers: {
@@ -94,36 +106,36 @@
                   },
                 method: "POST",
                 body: JSON.stringify({
-                    coordinacionZona: coordinacionZonaSelect.value 
+                    municipioId: municipioSelect.value 
                 })
             }
-            fetch(url, options)
+            fetch(url + queryParams, options)
             .then(response => response.json())
             .then(data => {
-                const {cz, result} = data
-                if(result < 1){
-                    warningAlert("La búsqueda no generó resultados");
-                    return
-                }
-                const {figuras_solidarias: figurasSolidaria} = cz;
+                const {municipio} = data
+                const {coordinacion_zonas: coordinacionZonas} = municipio
+
                 clearAlerts();
                 const tblFigurasSolidaria = document.querySelector("#tblFigurasSolidaria")
                 const [tbody] = tblFigurasSolidaria.tBodies
                 tbody.innerHTML = ""
                 let figuraSolidariaRow = ""
-                console.log(figurasSolidaria)
-                for(const figuraSolidaria of figurasSolidaria) {
-                    figuraSolidariaRow += `
-                        <tr>
-                            <td>${cz.nombre}</td>
-                            <td>figuraSolidaria.rol</td>
-                            <td>${figuraSolidaria.nombre}</td>
-                            <td>${figuraSolidaria.apellido_paterno}</td>
-                            <td>${figuraSolidaria.apellido_materno}</td>
-                            <td><a href="figuraSolidaria/${figuraSolidaria.id}"><i class="fas fa-eye"></i></a></td>
+                for(const cz in coordinacionZonas) {
+                    const {figuras_solidarias: figurasSolidaria} = coordinacionZonas[cz]
+                    for(const figuraSolidaria of figurasSolidaria) {
+                        figuraSolidariaRow += `
+                            <tr>
+                                <td>${coordinacionZonas[cz].nombre}</td>
+                                <td>figuraSolidaria.rol</td>
+                                <td>${figuraSolidaria.curp}</td>
+                                <td>${figuraSolidaria.nombre}</td>
+                                <td>${figuraSolidaria.apellido_paterno}</td>
+                                <td>${figuraSolidaria.apellido_materno}</td>
+                                <td><a href="figuraSolidaria/${figuraSolidaria.id}"><i class="fas fa-eye"></i></a></td>
 
-                        </tr>
-                    `
+                            </tr>
+                        `
+                    }
                 }
                 tbody.innerHTML = figuraSolidariaRow
             })

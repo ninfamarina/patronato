@@ -24,14 +24,24 @@ const Utils = (function(){
 		}
 	}
 
-	
+	const setQueryParams = function(params) {
+		if(params.size == 0)
+			return '';
+		let queryParams = "?";
+		for(const p of params.keys()) {
+			 queryParams += `${p}=${params.get(p)}&`;
+		}
+		return queryParams.slice(0, -1);
+	}
 
 	return {
 		getAlert,
-		clearAlerts
+		clearAlerts,
+		setQueryParams
 	}
 })()
 
 const warningAlert = Utils.getAlert('warning');
 const clearAlerts = Utils.clearAlerts
+const setQueryParams = Utils.setQueryParams
 
