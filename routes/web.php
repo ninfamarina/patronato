@@ -73,3 +73,6 @@ Route::delete('/roles/{id}','RolFiguraSolidariaController@destroy')->name('rolFi
     //Route::get('home', 'HomeController@index');
     
 //});
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
