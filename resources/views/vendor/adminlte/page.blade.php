@@ -53,6 +53,16 @@
 @endif
 
 @section('body')
+@guest
+<div class="wrapper pt-5">
+    <div class="content">
+        <div class="{{config('adminlte.classes_content', 'container-fluid')}}">
+            @yield('content')
+        </div>
+    </div>
+</div>
+@endguest
+@auth
     <div class="wrapper">
         @if(config('adminlte.layout_topnav') || View::getSection('layout_topnav'))
         <nav class="main-header navbar {{config('adminlte.classes_topnav_nav', 'navbar-expand-md')}} {{config('adminlte.topnav_color', 'navbar-white navbar-light')}}">
@@ -122,6 +132,7 @@
                     </nav>
                 @endif
             </nav>
+
         @if(!config('adminlte.layout_topnav') && !View::getSection('layout_topnav'))
         <aside class="main-sidebar {{config('adminlte.classes_sidebar', 'sidebar-dark-primary elevation-4')}}">
             @if(config('adminlte.logo_img_xl'))
@@ -146,7 +157,6 @@
             </div>
         </aside>
         @endif
-
         <div class="content-wrapper">
             @if(config('adminlte.layout_topnav') || View::getSection('layout_topnav'))
             <div class="container">
@@ -182,6 +192,7 @@
         @endif
 
     </div>
+    @endauth
 @stop
 
 @section('adminlte_js')
